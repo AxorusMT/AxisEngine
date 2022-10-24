@@ -8,13 +8,20 @@ project "AxisEngine"
     
     files {"src/**.cpp", "src/**.c", "src/**.h", "include/**.h"}
 
-    -- Linking to SDL2, opengl, and dl (idk if i need this)
-    links {"SDL2", "GL", "dl"}
+    -- Linking
+    links {"SDL2", "GL", "dl", "pthread", "X11"}
+    libdirs {"lib"}
+    
     includedirs {"include"}
+
+    buildoptions {"-Wl", "--no-as-needed"}
+    
     filter "configurations:Debug"
         defines {"AXIS_DEBUG"}
+        links {"bxDebug", "bgfxDebug", "bimgDebug"}
         symbols "On"
         
     filter "configurations:Release"
         defines {"AXIS_RELEASE"}
+        links {"bxRelease", "bgfxRelease", "bimgRelease"}
         optimize "On"

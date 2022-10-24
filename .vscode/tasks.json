@@ -6,23 +6,34 @@
         {
             "label": "AxisEngine - Debug build && run",
             "type": "shell",
-            "command": "make config=debug && ./bin/Debug/AxisEngine",
+            "command": "make config=debug -j4 && ./bin/Debug/AxisEngine",
             "presentation": {
-                "focus": true,
-                "panel": "new"
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": false
             },
-            "problemMatcher": []
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         },
         {
             "label": "AxisEngine - Release build && run",
             "type": "shell",
-            "command": "make config=release && ./bin/Release/AxisEngine",
+            "command": "make config=release -j4 && ./bin/Release/AxisEngine",
             "presentation": {
-                "focus": true,
-                "panel": "new"
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": false
             },
             "problemMatcher": []
         }
-        
     ]
 }

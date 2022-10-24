@@ -18,22 +18,12 @@ endif
 # Configurations
 # #############################################
 
-ifeq ($(origin CC), default)
-  CC = clang
-endif
-ifeq ($(origin CXX), default)
-  CXX = clang++
-endif
-ifeq ($(origin AR), default)
-  AR = ar
-endif
+RESCOMP = windres
 INCLUDES += -Iinclude
 FORCE_INCLUDE +=
 ALL_CPPFLAGS += $(CPPFLAGS) -MD -MP $(DEFINES) $(INCLUDES)
 ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-LIBS += -lSDL2 -lGL -ldl
 LDDEPS +=
-ALL_LDFLAGS += $(LDFLAGS)
 LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
 define PREBUILDCMDS
 endef
@@ -47,16 +37,20 @@ TARGETDIR = bin/Release
 TARGET = $(TARGETDIR)/AxisEngine
 OBJDIR = obj/Release
 DEFINES += -DAXIS_RELEASE
-ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -O2
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -O2
+ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -O2 -Wl --no-as-needed
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -O2 -Wl --no-as-needed
+LIBS += -lSDL2 -lGL -ldl -lpthread -lX11 -lbxRelease -lbgfxRelease -lbimgRelease
+ALL_LDFLAGS += $(LDFLAGS) -Llib -s
 
 else ifeq ($(config),debug)
 TARGETDIR = bin/Debug
 TARGET = $(TARGETDIR)/AxisEngine
 OBJDIR = obj/Debug
 DEFINES += -DAXIS_DEBUG
-ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -g
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -g
+ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -g -Wl --no-as-needed
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -g -Wl --no-as-needed
+LIBS += -lSDL2 -lGL -ldl -lpthread -lX11 -lbxDebug -lbgfxDebug -lbimgDebug
+ALL_LDFLAGS += $(LDFLAGS) -Llib
 
 endif
 
