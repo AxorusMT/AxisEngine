@@ -41,7 +41,10 @@ int main(int argc, const char* argv[]) {
 
     gladLoadGLLoader(SDL_GL_GetProcAddress);
 
+    // OpenGL stuff
+
     bool run = true;
+
 
     while (run) {
         glViewport(0, 0, 1280, 720);
@@ -58,7 +61,7 @@ int main(int argc, const char* argv[]) {
             }
         }
 
-        glClearColor(0.2f, 0.8f, 0.4f, 1.0f);
+        glClearColor(0.2f, 0.3f, 0.4f, 1.0f);
         glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
         SDL_GL_SwapWindow(window);
